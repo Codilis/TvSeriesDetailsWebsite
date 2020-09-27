@@ -1,0 +1,72 @@
+<head>
+	{% load static %}
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+	<!-- Custom CSS -->
+	<link rel="stylesheet" type="text/css" href="{% static 'main/navbar.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'main/main.css' %}">
+</head>
+
+<body>
+	<div class="header">
+	<header class="site-navbar py-4 js-sticky-header site-navbar-target" role="banner">
+		<div class="container-fluid">
+			<div class="row align-items-center justify-content-center">
+					<nav class="site-navigation position-relative text-right" role="navigation">
+						<ul class="navigation-bar">
+							<li><a href="/main/">Home</a></li>
+							<li><a href="#about-section">Your Current Subscription</a></li>
+							<li><a href="assets/resume/Palash Jain Resume.pdf" target="_blank" style="float:right;">User Settings</a></li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+	</header>
+	</div>
+	<button class="sidepanel-button" id="sidepanel-button" onclick="open_navbar()"><strong style="float:left;">☰</strong></button>
+	<div id="sidepanel" class="sidepanel">
+		<a href="/main/">Home</a>
+		<a href="#about-section">About</a>
+		<a href="#experience-section">Experience</a>
+		<a href="#project-section">Projects</a>
+		<a href="#certificate-section">Certificates</a>
+		<a href="assets/resume/Palash Jain Resume.pdf" target="_blank">Resume</a>
+	</div>
+{% block content %}
+{% endblock %}
+	<script>
+		 window.addEventListener("mouseup", function(e) {
+			 if (document.getElementById("sidepanel").style.width == "0px"){
+				 count = false;
+			 } else{
+				 count = true;
+			 }
+			 if (!(document.getElementById('sidepanel').contains(e.target)) && count){
+				 document.getElementById("sidepanel").style.width = "0";
+				 if(screen.width <= 800){
+					 document.getElementById("sidepanel-button").style.display = "inline";
+				 }
+			 }
+
+		 });
+
+
+		 function open_navbar() {
+			 document.getElementById("sidepanel").style.width = "250px";
+			 document.getElementById("sidepanel-button").style.display = "none";
+		 }
+
+		 var navbar = document.getElementById("sidepanel-button");
+		 var sticky = navbar.offsetTop;
+		 window.onscroll = function() {scroll_function()};
+		 function scroll_function() {
+			 if(screen.width <= 800){
+				 if (window.pageYOffset >= sticky+10) {
+					 navbar.classList.add("sticky")
+				 } else {
+					 navbar.classList.remove("sticky");
+				 }
+			 }
+		 }
+	</script>
+</body>
