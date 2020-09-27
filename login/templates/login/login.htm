@@ -9,21 +9,21 @@
       <h1 class="login-header"> <center> TV Series Details </center></h1>
       <form class="login" action="/logincheck/" method="post">
         {% csrf_token %}
-				{{ form }}
-        <input class="login-buttom" type="submit" name="login-now" value="LOGIN">
 				{% if messages %}
 					{% for message in messages %}
 						{% if message.tags == 'success'%}
-							<script>M.toast({html: "{{message}}", classes: 'green rounded', displayLength:2000});</script>
+							<div class="success-message"><p class="success-message">{{message}}</p></div>
 						{% elif message.tags == 'info'%}
-							<script>M.toast({html: "{{message}}", classes: 'blue rounded', displayLength:2000});</script>
+							<div class="info-message"><p class="info-message">{{message}}</p></div>
 						{% elif message.tags == 'warning'%}
-							<script>M.toast({html: "{{message}}", classes: 'orange rounded', displayLength:10000});</script>
+							<div class="warning-message"><p class="warning-message">{{message}}</p></div>
 						{% elif message.tags == 'error'%}
-							<script>M.toast({html: "{{message}}", classes: 'red rounded', displayLength:10000});</script>
+							<div class="error-message"><p class="error-message">{{message}}</p></div>
 						{% endif %}
 					{% endfor %}
 				{% endif %}
+				{{ form.as_p }}
+        <input class="login-buttom" type="submit" name="login-now" value="LOGIN">
       </form>
       <br>
       <a class="forget-password" href="/forgetpassword">Forget Password</a>

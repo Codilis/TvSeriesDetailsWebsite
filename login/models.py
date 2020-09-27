@@ -9,7 +9,7 @@ from django.contrib.auth.models import User
 class LoginForm(AuthenticationForm):
 	def __init__(self, *args, **kwargs):
 		super(LoginForm, self).__init__(*args, **kwargs)
-	username = forms.EmailField(widget=forms.TextInput(attrs={'placeholder': 'Email', 'class': 'login-username'}), label='')
+	username = forms.EmailField(widget=forms.EmailInput(attrs={'placeholder': 'Email', 'class': 'login-username'}), label='')
 	password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'Password', 'class': 'login-password'}), label='')
 
 # source: https://stackoverflow.com/questions/48049498/django-usercreationform-custom-fields

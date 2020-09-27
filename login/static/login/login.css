@@ -69,6 +69,7 @@ body {
 	font-size: 15px;
 	height: 35px;
 	margin-top: 30px;
+	margin-bottom: 30px;
 	width: 250px;
 	border-radius: 20px;
 	color: #FFF;
@@ -95,4 +96,52 @@ body {
 	margin-top:30px;
 	margin-right:10px;
 	float:right;
+}
+
+ul.errorlist {
+	display:none;
+}
+
+.error-message{
+	border-radius: 10px;
+	background-color: #F00;
+	margin: 0px;
+	float: right;
+	margin-right: 50px;
+	margin-bottom: 10px;
+	padding: 5px;
+	color: #FFF;
+}
+
+.success-message{
+	border-radius: 10px;
+	background-color: #0F0;
+	margin: 0px;
+	margin-bottom: 10px;
+	float: right;
+	margin-right: 50px;
+	padding: 5px;
+	color: #FFF;
+}
+
+.info-message{
+	border-radius: 10px;
+	background-color: #00FFFF;
+	margin: 0px;
+	float: right;
+	margin-right: 50px;
+	margin-bottom: 10px;
+	padding: 5px;
+	color: #FFF;
+}
+
+.warning-message{
+	border-radius: 10px;
+	background-color: #FFA500;
+	margin: 0px;
+	float: right;
+	margin-right: 50px;
+	margin-bottom: 10px;
+	padding: 5px;
+	color: #FFF;
 }

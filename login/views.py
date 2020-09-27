@@ -28,7 +28,8 @@ def createaccount(request):
 			return HttpResponseRedirect('/main/')
 		else:
 			for msg in form.error_messages:
-				messages.error(request, f"{msg}: {form.error_messages[msg]}")
+				if 'inactive' not in form.error_messages[msg]:
+					messages.error(request, f"{form.error_messages[msg]}")
 			context['form'] = form
 			return render(request = request, template_name = "login/createaccount.htm", context={"form":form})
 	else:
@@ -56,7 +57,8 @@ def logincheck(request):
 
 	if not form.is_valid():
 		for msg in form.error_messages:
-			messages.error(request, f"{msg}: {form.error_messages[msg]}")
+			if 'inactive' not in form.error_messages[msg]:
+				messages.error(request, f"{form.error_messages[msg]}")
 		context['form'] = form
 		return render(request = request, template_name = "login/login.htm", context={"form":form})
 
@@ -65,15 +67,18 @@ def logincheck(request):
 	user = authenticate(username=username, password=password)
 	if user is None:
 		for msg in form.error_messages:
-			messages.error(request, f"{msg}: {form.error_messages[msg]}")
+			if 'inactive' not in form.error_messages[msg]:
+				messages.error(request, f"{form.error_messages[msg]}")
 		context['form'] = form
 		return render(request = request, template_name = "login/login.htm", context={"form":form})
 
 	if user.is_active:
 		login(request, user)
+		# messages.success(request, f"Logged in Successfully")
 		return HttpResponseRedirect('/main/')
 
 	for msg in form.error_messages:
-		messages.error(request, f"{msg}: {form.error_messages[msg]}")
+		if 'inactive' not in form.error_messages[msg]:
+			messages.error(request, f"{form.error_messages[msg]}")
 	context['form'] = form
 	return render(request = request, template_name = "login/login.htm", context={"form":form})
