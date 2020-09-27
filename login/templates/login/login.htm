@@ -1,0 +1,32 @@
+<head>
+  <meta charset="utf-8">
+  <title>Login Page</title>
+	{% load static %}
+	<link rel="stylesheet" type="text/css" href="{% static 'login/login.css' %}">
+</head>
+<body>
+    <div class="login-wrap">
+      <h1 class="login-header"> <center> TV Series Details </center></h1>
+      <form class="login" action="/logincheck/" method="post">
+        {% csrf_token %}
+				{{ form }}
+        <input class="login-buttom" type="submit" name="login-now" value="LOGIN">
+				{% if messages %}
+					{% for message in messages %}
+						{% if message.tags == 'success'%}
+							<script>M.toast({html: "{{message}}", classes: 'green rounded', displayLength:2000});</script>
+						{% elif message.tags == 'info'%}
+							<script>M.toast({html: "{{message}}", classes: 'blue rounded', displayLength:2000});</script>
+						{% elif message.tags == 'warning'%}
+							<script>M.toast({html: "{{message}}", classes: 'orange rounded', displayLength:10000});</script>
+						{% elif message.tags == 'error'%}
+							<script>M.toast({html: "{{message}}", classes: 'red rounded', displayLength:10000});</script>
+						{% endif %}
+					{% endfor %}
+				{% endif %}
+      </form>
+      <br>
+      <a class="forget-password" href="/forgetpassword">Forget Password</a>
+      <a class="create-account" href="/createaccount">Create New Account</a>
+    </div>
+</body>
