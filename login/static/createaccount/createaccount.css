@@ -1,0 +1,122 @@
+body {
+	overflow: hidden;
+	font-weight: 400;
+	font-size: 1rem;
+	margin: 0px;
+	width: 100%;
+	min-height: 100vh;
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	align-items: center;
+	background: #f2f2f2;
+}
+.login-wrap{
+	margin-top: 1%;
+	width: 350px;
+	min-height: 575px;
+	background-color: #FFF;
+	-webkit-box-shadow: 0 8px 50px -5px rgba(0, 0, 0, 0.1);
+	box-shadow: 0 8px 50px -5px rgba(0, 0, 0, 0.1);
+	top: -2px;
+	border-radius: 10px;
+}
+.login-header{
+	margin-top: 40px;
+	display: block;
+}
+.login{
+	margin-top: 30px;
+	float: left;
+	margin-left: 45px;
+}
+.login-name, .login-username, .login-password{
+	font-family: Poppins-Regular;
+	font-size: 15px;
+	line-height: 1;
+	display: block;
+	height: 35px;
+	background: transparent;
+	border: none;
+	width: 250px;
+	padding: 0 5px;
+	border-radius: 10px;
+	border-color: #f2f2f2;
+	background: linear-gradient(#000, #000) center bottom 5px /calc(100% - 10px) 2px no-repeat;
+}
+.login-username{
+	margin-top: 10px;
+}
+.login-password{
+	margin-top: 10px;
+}
+.login-buttom{
+	font-family: Poppins-Regular;
+	font-size: 15px;
+	height: 35px;
+	margin-top: 30px;
+	width: 250px;
+	border-radius: 20px;
+	color: #FFF;
+	border: none;
+	background-color: #5973f2;
+	/* background-color: #24a0ed; */
+}
+.login-buttom:hover{
+	background-color: #24a0ed;
+}
+*:focus {
+	outline: none;
+}
+
+ul.errorlist {
+	display:none;
+}
+
+.error-message{
+	border-radius: 10px;
+	background-color: #F00;
+	margin: 0px;
+	float: right;
+	margin-right: 50px;
+	margin-bottom: 10px;
+	padding: 5px;
+	color: #FFF;
+}
+
+.success-message{
+	border-radius: 10px;
+	background-color: #0F0;
+	margin: 0px;
+	margin-bottom: 10px;
+	float: right;
+	margin-right: 50px;
+	padding: 5px;
+	color: #FFF;
+}
+
+.info-message{
+	border-radius: 10px;
+	background-color: #00FFFF;
+	margin: 0px;
+	float: right;
+	margin-right: 50px;
+	margin-bottom: 10px;
+	padding: 5px;
+	color: #FFF;
+}
+
+.warning-message{
+	border-radius: 10px;
+	background-color: #FFA500;
+	margin: 0px;
+	float: right;
+	margin-right: 50px;
+	margin-bottom: 10px;
+	padding: 5px;
+	color: #FFF;
+}
