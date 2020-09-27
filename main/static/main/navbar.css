@@ -1,0 +1,89 @@
+.header {
+  align-content: center;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  color: black;
+  text-align: center;
+  background-color: #5973f2;
+  z-index: 100;
+}
+
+a {
+  -webkit-transition: .3s all ease;
+  -o-transition: .3s all ease;
+  transition: .3s all ease;
+  color: #FFF;
+}
+  a:hover {
+    color: #24a0ed;
+    text-decoration: none;
+}
+
+ul.navigation-bar {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  background-color: #5973f2;
+}
+
+ul.navigation-bar li {
+  display: inline;
+  padding:30px;
+}
+
+.sidepanel-button {
+  font-size: 30px;
+  cursor: pointer;
+  background: none;
+  color: black;
+  padding: 10px 15px;
+  border: none;
+  display: none;
+}
+
+.sidepanel  {
+  width: 0;
+  position: fixed;
+  z-index: 1000;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-color: #4683b4;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.sidepanel a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #FFFFFF;
+  display: block;
+  transition: 0.3s;
+}
+
+
+.sticky {
+  position: fixed;
+  top: 0;
+  float: left;
+  width: 100%;
+  background: #4683b4;
+  z-index: 100;
+  -webkit-transform: translateZ(0);
+}
+
+.sticky > * {
+    -webkit-transform: translateZ(0);
+}
+
+@media screen and (max-width: 800px) {
+	.header{
+	 display: none;
+ }
+ .sidepanel-button{
+	 display: inline;
+ }
+}
