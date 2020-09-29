@@ -5,6 +5,7 @@
 	<!-- Custom CSS -->
 	<link rel="stylesheet" type="text/css" href="{% static 'main/navbar.css' %}">
 	<link rel="stylesheet" type="text/css" href="{% static 'main/main.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'view_subscription/view_subscription.css' %}">
 </head>
 
 <body>
@@ -14,16 +15,23 @@
 			<div class="row align-items-center justify-content-center">
 					<nav class="site-navigation position-relative text-right" role="navigation">
 						<ul class="navigation-bar">
-							<li><a href="/main/">Home</a></li>
-							<li><a href="#about-section">Your Current Subscription</a></li>
-							<li><a href="assets/resume/Palash Jain Resume.pdf" target="_blank" style="float:right;">User Settings</a></li>
+							<a href="/main/"><li>Home</li></a>
+							<a href="/viewsubscription/"><li>Your Current Subscription</li></a>
+							<a href="/logout/"><li>Logout</li></a>
+							<!-- <li class="dropdown">
+				        <a href="javascript:void(0)" class="dropbtn">User Settings</a>
+				        <div class="dropdown-content">
+									<a href="/changepassword/">Change Password</a>
+				          <a href="/logout/">Logout</a>
+				        </div>
+				      </li> -->
 						</ul>
 					</nav>
 				</div>
 			</div>
 	</header>
 	</div>
-	<button class="sidepanel-button" id="sidepanel-button" onclick="open_navbar()"><strong style="float:left;">☰</strong></button>
+	<!-- <button class="sidepanel-button" id="sidepanel-button" onclick="open_navbar()"><strong style="float:left;">☰</strong></button>
 	<div id="sidepanel" class="sidepanel">
 		<a href="/main/">Home</a>
 		<a href="#about-section">About</a>
@@ -31,7 +39,7 @@
 		<a href="#project-section">Projects</a>
 		<a href="#certificate-section">Certificates</a>
 		<a href="assets/resume/Palash Jain Resume.pdf" target="_blank">Resume</a>
-	</div>
+	</div> -->
 {% block content %}
 {% endblock %}
 	<script>

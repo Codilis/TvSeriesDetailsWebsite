@@ -3,7 +3,10 @@
 <body>
 	{% block content %}
 		<form class="add-series" method = "POST">
+			<h2 class="heading">Enter IMDb ID To Get Updates</h2>
 			{% csrf_token %}
+			{% load static %}
+			<img class="find-id-image" src="{% static '/images/findId.webp' %}" alt="">
 		  {{ form.as_p }}
 		  <input class="add-series-button" type="submit" value="Subscribe">
 		</form>
