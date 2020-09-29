@@ -1,0 +1,11 @@
+.subscription_table{
+	margin-top:150px;
+	margin-left:250px;
+	float: left;
+}
+
+table, tr, th, td{
+	border: 1px solid black;
+	border-collapse: collapse;
+	padding: 15px
+}
