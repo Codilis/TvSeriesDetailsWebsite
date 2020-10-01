@@ -3,6 +3,7 @@ from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.utils.translation import gettext_lazy as _
 from django.contrib.auth import password_validation
 from django import forms
+from django.contrib.auth.forms import PasswordChangeForm
 from django.contrib.auth.models import User
 
 # Create your models here.
@@ -37,3 +38,13 @@ class CreateAccountForm(UserCreationForm):
 		if commit:
 			user.save()
 		return user
+
+
+class ChangePasswordForm(PasswordChangeForm):
+	"""docstring for ChangePasswordForm."""
+	old_password = forms.CharField(label=_(''), widget=(forms.PasswordInput(attrs={'placeholder': 'Password', 'class': 'login-password'})))#, help_text=password_validation.password_validators_help_text_html())
+	new_password1 = forms.CharField(label=_(''), widget=(forms.PasswordInput(attrs={'placeholder': 'Password', 'class': 'login-password'})))#, help_text=password_validation.password_validators_help_text_html())
+	new_password2 = forms.CharField(label=_(''), widget=forms.PasswordInput(attrs={'placeholder': 'Confirm Password', 'class': 'login-password'}), help_text=_(''))
+
+	class Meta:
+		fields = ("old_password", "new_password1", "new_password2")
