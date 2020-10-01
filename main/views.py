@@ -4,12 +4,16 @@ from django.template import loader
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseForbidden, HttpResponseRedirect
 from django.contrib import messages
+from .constants import AVAILABLE_CHOICES_KEYS
 
 # Create your views here.
 @login_required(login_url='/login/')
 def home_view(request):
+	if not request.user.is_authenticated:
+		HttpResponseRedirect('/login/')
 	main_page = loader.get_template("main.htm")
 	context = {}
+	context['username'] = request.user
 	if request.method == 'POST':
 		form = UserTvSeries(request.POST)
 		if form.is_valid():
@@ -31,8 +35,12 @@ def home_view(request):
 
 @login_required(login_url='/login/')
 def view_subscription(request):
+	if not request.user.is_authenticated:
+		HttpResponseRedirect('/login/')
 	main_page = loader.get_template("view_subscription.htm")
 	details = UserTvSeriesModel.objects.filter(user=request.user)
 	context = {}
+	context['username'] = request.user
 	context['subscribed_series'] = details
+	context['series_update_keys'] = AVAILABLE_CHOICES_KEYS
 	return HttpResponse(main_page.render(context, request))
