@@ -37,7 +37,7 @@ ul.navigation-bar li {
   padding:30px;
 }
 
-ul.navigation-bar li:hover {
+li.change-color:hover {
   background-color: #24a0ed;
 }
 
@@ -107,25 +107,20 @@ ul {
 li {
 	float: left;
 	}
-li a, .dropbtn{
+li a{
 	color: white;
 	text-align: center;
 	text-decoration: none;
 }
-li .dropbox:hover {
-	background-color: #24a0ed;
-}
-/* li a:hover, .dropbox:hover {
-	background-color: #24a0ed;
-} */
+
 li.dropdown {
 	display: inline-block;
 }
 .dropdown-content {
 	display: none;
 	position: absolute;
-	margin: 10px;
-	margin-left: -30px;
+	margin-top: 30px;
+	padding: 10px;
 	background-color: #5973f2;
 	z-index: 1;
 }
@@ -146,6 +141,11 @@ li.dropdown {
 
 .dropdown:hover .dropdown-content {
 	display: block;
+}
+.dropbtn{
+	color: white;
+	text-align: center;
+	text-decoration: none;
 }
 button.dropbtn{
 	color: white;
