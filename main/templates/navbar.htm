@@ -4,8 +4,6 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
 	<!-- Custom CSS -->
 	<link rel="stylesheet" type="text/css" href="{% static 'main/navbar.css' %}">
-	<link rel="stylesheet" type="text/css" href="{% static 'main/main.css' %}">
-	<link rel="stylesheet" type="text/css" href="{% static 'view_subscription/view_subscription.css' %}">
 </head>
 
 <body>
@@ -15,16 +13,16 @@
 			<div class="row align-items-center justify-content-center">
 					<nav class="site-navigation position-relative text-right" role="navigation">
 						<ul class="navigation-bar">
-							<a href="/main/"><li>Home</li></a>
-							<a href="/viewsubscription/"><li>Your Current Subscription</li></a>
-							<a href="/logout/"><li>Logout</li></a>
-							<!-- <li class="dropdown">
-				        <a href="javascript:void(0)" class="dropbtn">User Settings</a>
+							<a href="/main/"><li class="change-color">Home</li></a>
+							<a href="/viewsubscription/"><li class="change-color">Your Current Subscription</li></a>
+							<!-- <a href="/logout/"><li>Logout</li></a> -->
+							<li class="dropdown">
+				        <a href="javascript:void(0)" class="dropbtn">{{ username }}</a>
 				        <div class="dropdown-content">
 									<a href="/changepassword/">Change Password</a>
 				          <a href="/logout/">Logout</a>
 				        </div>
-				      </li> -->
+				      </li>
 						</ul>
 					</nav>
 				</div>
