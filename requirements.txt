@@ -1,2 +1,5 @@
 Django
 Jinja2
+#For heroku
+django-heroku
+gunicorn
