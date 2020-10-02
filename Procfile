@@ -1,3 +1,3 @@
-web: gunicorn TvSeriesDetails.wsgi:application --preload -b 0.0.0.0:5000
+web: gunicorn TvSeriesDetails.wsgi:application --log-file - --log-level debug
 python manage.py collectstatic --noinput
 manage.py migrate
