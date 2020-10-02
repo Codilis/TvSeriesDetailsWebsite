@@ -1,5 +1,4 @@
-.subscription_table{
-	margin-left:450px;
+.subscription-table{
 	float: left;
 }
 
@@ -11,14 +10,68 @@ table, tr, th, td{
 
 .delete-button{
 	margin-top:150px;
-	margin-left:450px;
 	background-color: transparent;
 	text-shadow: 1px 1px #000000;
 }
 
-.delete-button:focus, .delete-button:active, .delete-button:visited{
-	margin-top:150px;
-	margin-left:450px;
+.subscription-table, .delete-button{
+	margin-left:350px;
+}
+
+.update-button{
+	margin-left:540px;
+}
+
+.delete-button:focus, .delete-button:active, .delete-button:visited, .update-button{
 	background-color: transparent;
 	text-shadow: 0px 0px #000000;
+}
+
+.update-button:active{
+	box-shadow: 1px 0px #999;
+	transform: translateX(1px);
+	outline: none;
+}
+
+
+.update-button{
+	font-family: Poppins-Regular;
+	font-size: 15px;
+	margin-bottom: 10px;
+	height: 35px;
+	border-radius: 2px;
+  box-shadow: 2px 0px #666;
+	color: #FFF;
+	border: #5973f2;
+	background-color: #5973f2;
+	outline:  #5973f2;
+}
+
+.update-button:focus{
+	outline: none;
+}
+
+.series-update-type {
+	color: #000;
+	padding: 8px 16px;
+	border: 1px solid transparent;
+	border-color: transparent transparent rgba(0, 0, 0, 5) transparent;
+	user-select: none;
+	width: 250px;
+}
+
+*:focus {
+	outline: none;
+}
+
+
+.series-update-type:after {
+	position: absolute;
+	content: "";
+	top: 14px;
+	right: 10px;
+	width: 0;
+	height: 0;
+	border: 6px solid transparent;
+	border-color: #fff transparent transparent transparent;
 }
