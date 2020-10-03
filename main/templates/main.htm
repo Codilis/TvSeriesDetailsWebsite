@@ -15,11 +15,21 @@
 			{% csrf_token %}
 			{% load static %}
 			<img class="find-id-image" src="{% static '/images/findId.webp' %}" alt="">
+			{% if messages %}
+				{% for message in messages %}
+					{% if message.tags == 'success'%}
+						<div class="success-message"><p class="success-message">{{message}}</p></div>
+					{% elif message.tags == 'info'%}
+						<div class="info-message"><p class="info-message">{{message}}</p></div>
+					{% elif message.tags == 'warning'%}
+						<div class="warning-message"><p class="warning-message">{{message}}</p></div>
+					{% elif message.tags == 'error'%}
+						<div class="error-message"><p class="error-message">{{message}}</p></div>
+					{% endif %}
+				{% endfor %}
+			{% endif %}
 		  {{ form.as_p }}
 		  <input class="add-series-button" type="submit" value="Subscribe">
 		</form>
 	{% endblock %}
-	<script type="text/javascript">
-		$(".dropdown-trigger").dropdown();
-	</script>
 </body>
