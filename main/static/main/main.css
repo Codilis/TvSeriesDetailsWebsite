@@ -1,6 +1,5 @@
 html {
   overflow-x: hidden;
-  scroll-behavior: smooth;
 }
 body {
 	overflow-x: hidden !important;
@@ -155,15 +154,13 @@ ul.errorlist {
 
 @media screen and (max-width: 800px) {
 	.add-series{
-		position:relative;
+		position:absolute;
 		margin: 0px;
-		justify-content: center;
-		align-content: center;
-		align-items: center;
-		margin-top: 0px;
-		width: 100vw;
+		margin-top: 100px;
+		padding-left: 30px;
 	}
 	.heading{
+		margin: 0px;
 		margin-bottom: 20px;
 		background-color: transparent;
 		text-shadow: 1px 1px #000000;
@@ -191,5 +188,11 @@ ul.errorlist {
 		display: block;
 		pointer-events: none;
 		user-select: none;
+	}
+}
+
+@media screen and (max-width: 500px) {
+	.heading{
+		font-size: 15px;
 	}
 }
