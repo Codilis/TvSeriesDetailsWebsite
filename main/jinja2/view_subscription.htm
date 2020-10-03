@@ -11,20 +11,19 @@
 <body>
 	{% block content %}
 	<i class="delete-button fa fa-trash-o" id="delete-button" style="font-size:48px;color:red" onclick="delete_items()"></i>
-	<button type="button" class="update-button" name="update-button">SAVE</button>
+	<button type="button" class="update-button" name="update-button" onclick="save_items()">SAVE</button>
 	<table class="subscription-table" id="subscription-table">
 		<th></th>
 		<th>Series ID</th>
 		<th>Subscription Type</th>
-		<th>Updated Date</th>
+		<th>Date Added</th>
 		{% set ns = namespace(j=1) %}
 		{% for item in subscribed_series %}
 			<tr>
 				<td><input type="checkbox" name="checkbox-{{ ns.j }}" id="checkbox-{{ ns.j }}" value="{{ item.tv_series_id }}"></td>
-				{% set ns.j = ns.j + 1 %}
 				<td>{{ item.tv_series_id }}</td>
 				<td>
-					<select class="series-update-type" name="series-update-type">
+					<select class="series-update-type" name="series-update-type-{{ ns.j }}">
 						{% for key, value in series_update_keys.items() %}
 							{% if key == item.update_type %}
 								<option value="{{key}}" selected>{{ value }}</option>
@@ -35,18 +34,17 @@
 					</select>
 				</td>
 				<td>{{ item.date_added }}</td>
+				{% set ns.j = ns.j + 1 %}
 			</tr>
 		{% endfor %}
 	</table>
 	<script type="text/javascript">
 	function delete_items(){
-		// alert("Items Deleted")
 		var table = document.getElementById("subscription-table");
 		form = document.createElement('form');
 		form.method = 'post';
 		form.action = '/delete_subscriptions/';
 		for (var i = 1, row; row = table.rows[i]; i++) {
-			console.log("checkbox-"+i);
 			if (document.getElementById("checkbox-"+i).checked) {
 				hiddenField = document.createElement('input');
 				hiddenField.type = 'hidden';
@@ -54,6 +52,21 @@
 				hiddenField.value = row.cells[1].innerText;
 				form.appendChild(hiddenField);
 			}
+		}
+		document.body.appendChild(form);
+		form.submit();
+	}
+	function save_items(){
+		var table = document.getElementById("subscription-table");
+		form = document.createElement('form');
+		form.method = 'post';
+		for (var i = 1, row; row = table.rows[i]; i++) {
+			hiddenField = document.createElement('input');
+			hiddenField.type = 'hidden';
+			hiddenField.name = row.cells[1].innerText;
+			e = row.cells[2].getElementsByTagName("select")[0];
+			hiddenField.value = e.options[e.selectedIndex].value;
+			form.appendChild(hiddenField);
 		}
 		document.body.appendChild(form);
 		form.submit();
