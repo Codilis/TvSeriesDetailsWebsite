@@ -49,6 +49,8 @@ li.change-color:hover {
   padding: 10px 15px;
   border: none;
   display: none;
+  height: fit-content;
+	margin: 0px;
 }
 
 .sidepanel  {
@@ -58,21 +60,30 @@ li.change-color:hover {
   height: 100%;
   top: 0;
   left: 0;
-  background-color: #4683b4;
+  background-color: #5973f2;
   overflow-x: hidden;
   transition: 0.5s;
-  padding-top: 60px;
+  padding-top: 0px;
 }
 
 .sidepanel a {
   padding: 8px 8px 8px 32px;
   text-decoration: none;
-  font-size: 25px;
   color: #FFFFFF;
   display: block;
-  transition: 0.3s;
+	white-space: nowrap;
+  transition: 0.1s;
 }
 
+a.bottom-border{
+	box-shadow: none;
+	font-size: 35px;
+  border-bottom: 2px solid rgba(0,0,0,.4);
+}
+
+div.bottom-border{
+	background-color: #24a0ed;
+}
 
 .sticky {
   position: fixed;

@@ -13,10 +13,9 @@
 					<nav class="site-navigation position-relative text-right" role="navigation">
 						<ul class="navigation-bar">
 							<a href="/main/"><li class="change-color">Home</li></a>
-							<a href="/viewsubscription/"><li class="change-color">Your Current Subscription</li></a>
-							<!-- <a href="/logout/"><li>Logout</li></a> -->
+							<a href="/viewsubscription/"><li class="change-color">Current Subscriptions</li></a>
 							<li class="dropdown">
-				        <a href="javascript:void(0)" class="dropbtn">{{ username }}</a>
+				        <a href="javascript:void(0)" class="dropbtn">Welcome {{ username }}</a>
 				        <div class="dropdown-content">
 									<a href="/changepassword/">Change Password</a>
 				          <a href="/logout/">Logout</a>
@@ -28,18 +27,27 @@
 			</div>
 	</header>
 	</div>
-	<!-- <button class="sidepanel-button" id="sidepanel-button" onclick="open_navbar()"><strong style="float:left;">☰</strong></button>
+	<button class="sidepanel-button" id="sidepanel-button" onclick="open_navbar()"><strong style="float:left;">☰</strong></button>
 	<div id="sidepanel" class="sidepanel">
+		<div class="bottom-border">
+			<a class="" href="#"></a>
+			<a class="" href="#"></a>
+			<a class="" href="#"></a>
+			<a class="" href="#"></a>
+			<a class="" href="#"></a>
+			<a class="bottom-border" href="#">Welcome <br>{{ username }}</a>
+		</div>
+		<a href="#"></a>
+		<a href="#"></a>
+		<a href="#"></a>
 		<a href="/main/">Home</a>
-		<a href="#about-section">About</a>
-		<a href="#experience-section">Experience</a>
-		<a href="#project-section">Projects</a>
-		<a href="#certificate-section">Certificates</a>
-		<a href="assets/resume/Palash Jain Resume.pdf" target="_blank">Resume</a>
-	</div> -->
+		<a href="/viewsubscription/">Current Subscriptions</a>
+		<a href="/changepassword/">Change Password</a>
+		<a href="/logout/">Logout</a>
+	</div>
 {% block content %}
 {% endblock %}
-	<!-- <script>
+	<script>
 		 window.addEventListener("mouseup", function(e) {
 			 if (document.getElementById("sidepanel").style.width == "0px"){
 				 count = false;
@@ -73,5 +81,5 @@
 				 }
 			 }
 		 }
-	</script> -->
+	</script>
 </body>

@@ -61,7 +61,7 @@ def changepassword(request):
 	if not request.user.is_authenticated:
 		HttpResponseRedirect('/login/')
 	context = {}
-	context['username'] = request.user
+	context['username'] = request.user.get_full_name()
 	if request.method == 'POST':
 		form = PasswordChangeForm(request.user, request.POST)
 		if form.is_valid():

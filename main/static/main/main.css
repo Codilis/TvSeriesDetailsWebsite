@@ -1,10 +1,14 @@
+html {
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
 body {
-	overflow: hidden;
+	overflow-x: hidden !important;
 	font-weight: 400;
 	font-size: 1rem;
 	margin: 0px;
-	width: 100%;
-	min-height: 100vh;
+	width: 100vw;
+	max-height: 100vh;
 	display: -webkit-box;
 	display: -webkit-flex;
 	display: -moz-box;
@@ -147,4 +151,45 @@ ul.errorlist {
 	padding: 3px;
 	width: auto;
 	color: #FFF;
+}
+
+@media screen and (max-width: 800px) {
+	.add-series{
+		position:relative;
+		margin: 0px;
+		justify-content: center;
+		align-content: center;
+		align-items: center;
+		margin-top: 0px;
+		width: 100vw;
+	}
+	.heading{
+		margin-bottom: 20px;
+		background-color: transparent;
+		text-shadow: 1px 1px #000000;
+		color: #5973f2;
+		font-size: 20px;
+		display: inline-block;
+		white-space: nowrap;
+	}
+	/* .find-id-image{
+    position: relative;
+    width: 400px;
+    display: block;
+		float: none;
+		margin-bottom: 20px;
+    pointer-events: none;
+    user-select: none;
+		overflow-x: hidden;
+	} */
+	.find-id-image{
+		position: relative;
+		width: 400px;
+		margin-left: 0px;
+		margin-bottom: 20px;
+		float: none;
+		display: block;
+		pointer-events: none;
+		user-select: none;
+	}
 }

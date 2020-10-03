@@ -14,7 +14,8 @@ def home_view(request):
 		HttpResponseRedirect('/login/')
 	main_page = loader.get_template("main.htm")
 	context = {}
-	context['username'] = request.user
+	print(request.user.get_full_name())
+	context['username'] = request.user.get_full_name()
 	if request.method == 'POST':
 		form = UserTvSeries(request.POST)
 		if form.is_valid():
@@ -46,7 +47,7 @@ def view_subscription(request):
 	if not request.user.is_authenticated:
 		HttpResponseRedirect('/login/')
 	context = {}
-	context['username'] = request.user
+	context['username'] = request.user.get_full_name()
 	context['series_update_keys'] = AVAILABLE_CHOICES_KEYS
 	if request.method == 'POST':
 		for key, value in request.POST.items():
@@ -66,7 +67,7 @@ def delete_subscriptions(request):
 	if not request.user.is_authenticated:
 		HttpResponseRedirect('/login/')
 	context = {}
-	context['username'] = request.user
+	context['username'] = request.user.get_full_name()
 	context['series_update_keys'] = AVAILABLE_CHOICES_KEYS
 	if request.method == 'POST':
 		for key, value in request.POST.items():

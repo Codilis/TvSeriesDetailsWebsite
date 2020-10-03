@@ -1,3 +1,11 @@
+html {
+  overflow: hidden;
+  scroll-behavior: smooth;
+}
+body{
+	overflow: hidden;
+
+}
 .subscription-table{
 	float: left;
 }
@@ -122,4 +130,15 @@ ul.errorlist {
 	margin-bottom: 10px;
 	padding: 5px;
 	color: #FFF;
+}
+
+@media screen and (max-width: 800px) {
+	.subscription-table, .delete-button{
+		margin-left:100px;
+		margin-top:5px;
+	}
+	.update-button{
+		margin-left:400px;
+		margin-bottom: 0px;
+	}
 }
