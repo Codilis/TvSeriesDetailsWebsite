@@ -11,20 +11,38 @@
 </html>
 <body>
 	{% block content %}
+	<center>
 	<i class="delete-button fa fa-trash-o" id="delete-button" style="font-size:48px;color:red" onclick="delete_items()"></i>
-	<button type="button" class="update-button" name="update-button" onclick="save_items()">SAVE</button>
-	<table class="subscription-table" id="subscription-table">
-		<th></th>
-		<th>Series ID</th>
-		<th>Subscription Type</th>
-		<th>Date Added</th>
+	<button type="button" class="save-button" name="save-button" onclick="save_items()">SAVE</button>
+	</center>
+	<table class="subscription-table" id="subscription-table" style="width:100%">
+		<colgroup>
+			<col span="1" style="width: 10%;">
+       <col span="1" style="width: 25%;">
+       <col span="1" style="width: 30%;">
+       <col span="1" style="width: 30%;">
+    </colgroup>
+		<tr class="dark-color-strip">
+			<th></th>
+			<th>Series ID</th>
+			<th>Subscription Type</th>
+			<th>Date Added</th>
+		</tr>
 		{% set ns = namespace(j=1) %}
 		{% for item in subscribed_series %}
-			<tr>
+			{% if ns.j%2 == 1 %}
+				<tr class="light-color-strip">
+			{% else %}
+				<tr class="dark-color-strip">
+			{% endif %}
 				<td><input type="checkbox" name="checkbox-{{ ns.j }}" id="checkbox-{{ ns.j }}" value="{{ item.tv_series_id }}"></td>
 				<td>{{ item.tv_series_id }}</td>
 				<td>
-					<select class="series-update-type" name="series-update-type-{{ ns.j }}">
+					{% if ns.j%2 == 1 %}
+						<select class="series-update-type" name="series-update-type-{{ ns.j }}">
+					{% else %}
+						<select class="series-update-type dark-color-strip" name="series-update-type-{{ ns.j }}">
+					{% endif %}
 						{% for key, value in series_update_keys.items() %}
 							{% if key == item.update_type %}
 								<option value="{{key}}" selected>{{ value }}</option>
