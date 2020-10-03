@@ -19,12 +19,18 @@ def home_view(request):
 		form = UserTvSeries(request.POST)
 		if form.is_valid():
 			tv_series_id = form.cleaned_data.get('tv_series_id')
+			x = UserTvSeriesModel.objects.filter(user=request.user, tv_series_id=tv_series_id)
+			print(len(x))
+			if len(x) > 0:
+				messages.error(request, f"Series {tv_series_id} Already Exist")
+				return HttpResponseRedirect('/main/')
 			p = form.save(commit=False)
 			print(request.user)
 			p.user = request.user
 			p.save()
-			context['form'] = form
-			messages.error(request, f"Successfully Added New Series: {tv_series_id}")
+			context['form'] = UserTvSeries()
+			messages.error(request, f"Successfully Added New Series {tv_series_id}")
+			return HttpResponseRedirect('/main/')
 		else:
 			for field, items in form.errors.items():
 				for item in items:
@@ -34,19 +40,7 @@ def home_view(request):
 		context['form'] = UserTvSeries()
 	return HttpResponse(main_page.render(context, request))
 
-@login_required(login_url='/login/')
-def view_subscription(request):
-	if not request.user.is_authenticated:
-		HttpResponseRedirect('/login/')
-	context = {}
-	context['username'] = request.user
-	context['series_update_keys'] = AVAILABLE_CHOICES_KEYS
-	if request.method == 'DELETE':
-		pass
-	main_page = loader.get_template("view_subscription.htm")
-	context['subscribed_series'] = UserTvSeriesModel.objects.filter(user=request.user)
-	return HttpResponse(main_page.render(context, request))
-
+@csrf_exempt
 @login_required(login_url='/login/')
 def view_subscription(request):
 	if not request.user.is_authenticated:
@@ -55,9 +49,15 @@ def view_subscription(request):
 	context['username'] = request.user
 	context['series_update_keys'] = AVAILABLE_CHOICES_KEYS
 	if request.method == 'POST':
-		pass
+		for key, value in request.POST.items():
+			row = UserTvSeriesModel.objects.get(user=request.user, tv_series_id=key)
+			row.update_type = value
+			row.save()
+		return HttpResponseRedirect('/viewsubscription/')
 	main_page = loader.get_template("view_subscription.htm")
 	context['subscribed_series'] = UserTvSeriesModel.objects.filter(user=request.user)
+	for x in context['subscribed_series']:
+		x.date_added = x.date_added.strftime("%B %d, %Y")
 	return HttpResponse(main_page.render(context, request))
 
 @csrf_exempt
