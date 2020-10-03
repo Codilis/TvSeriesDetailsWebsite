@@ -1,4 +1,6 @@
 # TvSeriesDetailsWebsite
 This is the Website for TvSeriesDetails Project (https://github.com/Codilis/Tv-Series-Details)
 
-Technology stack: Python, Django, HTML, CSS, Javascript
+Live Version of This is available on https://tv-series-details.herokuapp.com/
+
+Technology stack: Python, Django, HTML, CSS, JavaScript
