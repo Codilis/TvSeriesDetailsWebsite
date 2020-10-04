@@ -5,12 +5,6 @@ body {
 	margin: 0px;
 	width: 100%;
 	min-height: 100vh;
-	/* display: -webkit-box;
-	display: -webkit-flex;
-	display: -moz-box;
-	display: -ms-flexbox;
-	display: flex;
-	flex-wrap: wrap; */
 	justify-content: center;
 	align-items: center;
 	align-content: center;
@@ -33,22 +27,6 @@ body {
 	width: 350px;
 	border-radius: 10px;
 }
-
-/* .login-wrap{
-	min-height: 575px;
-	background-color: #FFF;
-	-webkit-box-shadow: 0 8px 50px -5px rgba(0, 0, 0, 0.1);
-	box-shadow: 0 8px 50px -5px rgba(0, 0, 0, 0.1);
-	width: 350px;
-	margin: auto;
-	border-radius: 10px;
-	align-items: center;
-	align-content: center;
-	text-align: center;
-	vertical-align: center;
-	overflow: hidden;
-	margin-top: 100px;
-} */
 
 .login-header{
 	margin-top: 40px;
@@ -169,16 +147,4 @@ ul.errorlist {
 
 .sidepanel-button{
 	top: -100px;
-}
-
-/* @media screen and (max-width: 1000px) {
-	.login-wrap{
-		width: 80%;
-		min-height: 80%;
-		background-color: #FFF;
-		-webkit-box-shadow: 0 8px 50px -5px rgba(0, 0, 0, 0.1);
-		box-shadow: 0 8px 50px -5px rgba(0, 0, 0, 0.1);
-		top: 0px;
-	} */
-
 }
