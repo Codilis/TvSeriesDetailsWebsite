@@ -39,7 +39,7 @@ table, tr, th, td{
 }
 
 .dark-color-strip{
-	background-color: rgba(242,242,242,0.5);
+	background-color: rgb(242 205 205 / 50%);
 }
 
 

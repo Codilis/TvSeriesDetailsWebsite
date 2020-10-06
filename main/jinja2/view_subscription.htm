@@ -17,13 +17,15 @@
 	</center>
 	<table class="subscription-table" id="subscription-table" style="width:100%">
 		<colgroup>
-			<col span="1" style="width: 10%;">
-       <col span="1" style="width: 25%;">
-       <col span="1" style="width: 30%;">
-       <col span="1" style="width: 30%;">
+			<col span="1" style="width: 5%;">
+			<col span="1" style="width: 30%;">
+      <col span="1" style="width: 15%;">
+      <col span="1" style="width: 20%;">
+      <col span="1" style="width: 25%;">
     </colgroup>
 		<tr class="dark-color-strip">
 			<th></th>
+			<th>Series Name</th>
 			<th>Series ID</th>
 			<th>Subscription Type</th>
 			<th>Date Added</th>
@@ -36,6 +38,7 @@
 				<tr class="dark-color-strip">
 			{% endif %}
 				<td><input type="checkbox" name="checkbox-{{ ns.j }}" id="checkbox-{{ ns.j }}" value="{{ item.tv_series_id }}"></td>
+				<td>{{ item.tv_series_name }}</td>
 				<td>{{ item.tv_series_id }}</td>
 				<td>
 					{% if ns.j%2 == 1 %}
@@ -68,7 +71,7 @@
 				hiddenField = document.createElement('input');
 				hiddenField.type = 'hidden';
 				hiddenField.name = "checkbox-"+i;
-				hiddenField.value = row.cells[1].innerText;
+				hiddenField.value = row.cells[2].innerText;
 				form.appendChild(hiddenField);
 			}
 		}
@@ -82,8 +85,8 @@
 		for (var i = 1, row; row = table.rows[i]; i++) {
 			hiddenField = document.createElement('input');
 			hiddenField.type = 'hidden';
-			hiddenField.name = row.cells[1].innerText;
-			e = row.cells[2].getElementsByTagName("select")[0];
+			hiddenField.name = row.cells[2].innerText;
+			e = row.cells[3].getElementsByTagName("select")[0];
 			hiddenField.value = e.options[e.selectedIndex].value;
 			form.appendChild(hiddenField);
 		}
