@@ -6,6 +6,7 @@ from django.http import HttpResponse, HttpResponseForbidden, HttpResponseRedirec
 from django.contrib import messages
 from .constants import AVAILABLE_CHOICES_KEYS
 from django.views.decorators.csrf import csrf_exempt
+from .imdb_functions import get_tv_series_name
 
 # Create your views here.
 @login_required(login_url='/login/')
@@ -14,23 +15,29 @@ def home_view(request):
 		HttpResponseRedirect('/login/')
 	main_page = loader.get_template("main.htm")
 	context = {}
-	print(request.user.get_full_name())
 	context['username'] = request.user.get_full_name()
 	if request.method == 'POST':
 		form = UserTvSeries(request.POST)
 		if form.is_valid():
 			tv_series_id = form.cleaned_data.get('tv_series_id')
+			tv_seires_details = get_tv_series_name(tv_series_id)
+			tv_series_name, tv_series_id = tv_seires_details
+			if tv_series_name == 'CONNECTIONERROR':
+				messages.error(request, f"Looks like we are having some issues, try again later.")
+				return HttpResponseRedirect('/main/')
+			if tv_series_name == 'NOTTVSERIES' or tv_series_name == 'NOTFOUNDSERIES':
+				messages.error(request, f"{form.cleaned_data.get('tv_series_id')} Not a Valid Series Id")
+				return HttpResponseRedirect('/main/')
 			x = UserTvSeriesModel.objects.filter(user=request.user, tv_series_id=tv_series_id)
-			print(len(x))
 			if len(x) > 0:
 				messages.error(request, f"Series {tv_series_id} Already Exist")
 				return HttpResponseRedirect('/main/')
 			p = form.save(commit=False)
-			print(request.user)
 			p.user = request.user
+			p.tv_series_name = tv_series_name
 			p.save()
 			context['form'] = UserTvSeries()
-			messages.error(request, f"Successfully Added New Series {tv_series_id}")
+			messages.success(request, f"Successfully Added New Series {tv_series_id}")
 			return HttpResponseRedirect('/main/')
 		else:
 			for field, items in form.errors.items():
@@ -70,6 +77,7 @@ def delete_subscriptions(request):
 	context['username'] = request.user.get_full_name()
 	context['series_update_keys'] = AVAILABLE_CHOICES_KEYS
 	if request.method == 'POST':
+		print(request.POST)
 		for key, value in request.POST.items():
 			UserTvSeriesModel.objects.filter(user=request.user, tv_series_id=value).delete()
 	main_page = loader.get_template("view_subscription.htm")

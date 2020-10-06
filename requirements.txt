@@ -1,6 +1,8 @@
 Django
 Jinja2
 python-environ
+IMDbPY
+beautifulsoup4
 #For heroku
 django-heroku
 gunicorn
