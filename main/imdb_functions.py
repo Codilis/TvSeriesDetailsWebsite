@@ -5,6 +5,9 @@ import os
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
 import re
+from django.conf import settings
+from django.core.mail import send_mail
+from .models import TvSeriesDetailsModel
 
 PATH = os.getcwd()
 def get_tv_series_name(tv_series_id):
@@ -13,8 +16,6 @@ def get_tv_series_name(tv_series_id):
 	try:
 		ia = IMDb()
 		series  = ia.get_movie(tv_series_id[2:])
-		print(series.data)
-		print(series['seasons'])
 	except Exception as e:
 		return ('CONNECTIONERROR', '000000')
 	try:
@@ -64,16 +65,21 @@ def get_series_latest_info(tv_series_id):
 				announcement_season = latest_season
 				announced_season_total_episode = len(season_episodes_info)
 
-	print("New Update For", tv_series_id)
-	print("Season", announcement_season, "Announcements")
-	print("total Episodes: {announced_season_total_episode},".format(announced_season_total_episode=announced_season_total_episode))
-	print("Latest Episode Name: {latest_declared_name},".format(latest_declared_name=latest_declared_name))
-	print("Latest Episode Number: {latest_episode_number},".format(latest_episode_number=latest_episode_number))
-	print("Release Date: {release_date},".format(release_date=release_date))
-	print("Plot: {latest_plot}".format(latest_plot=latest_plot))
-	if announcement_season < total_season:
-		print(",".join(map(str, range(announcement_season+1, total_season+1))), "are also Announced")
+	email_subject = f"New Update For {series['title']}"
 
+	email_body = [
+					"Season {} Announcements".format(announcement_season),
+					"Total Episodes: {announced_season_total_episode},".format(announced_season_total_episode=announced_season_total_episode),
+					"Latest Episode Name: {latest_declared_name},".format(latest_declared_name=latest_declared_name),
+					"Latest Episode Number: {latest_episode_number},".format(latest_episode_number=latest_episode_number),
+					"Release Date: {release_date},".format(release_date=release_date),
+					"Plot: {latest_plot}".format(latest_plot=latest_plot)
+				]
+
+	if announcement_season < total_season:
+		email_body.append(",".join(map(str, range(announcement_season+1, total_season+1)))+" are also Announced")
+
+	return email_subject, "\n".join(email_body)
 	"""
 	Test Series: Upload, Stranger Things, THe Boys
 	Email Subject: New Update For {Tv Series}
@@ -85,6 +91,35 @@ def get_series_latest_info(tv_series_id):
 				'Plot': {latest_plot}
 
 	"""
+
+def tv_series_email(tv_series_id, tv_series_name, recipient_list):
+	try:
+		series_details = TvSeriesDetailsModel.objects.filter(tv_series_id=tv_series_id)
+		if len(series_details) > 0:
+			subject = f'New Update For {series_details[0].tv_series_name}'
+			message = series_details[0].email_body
+		else:
+			print(tv_series_id)
+			subject, message = get_series_latest_info(tv_series_id)
+			new_series = TvSeriesDetailsModel()
+			new_series.tv_series_id = tv_series_id
+			new_series.tv_series_name = tv_series_name
+			new_series.email_subject = subject
+			new_series.email_body = message
+			new_series.save()
+		email_from = settings.EMAIL_HOST_USER
+		send_mail(subject, message, email_from, recipient_list)
+	except:
+		f = open('{}\\error_logs.txt'.format(PATH), 'a+')
+		f.close()
+		with open('{}\\error_logs.txt'.format(PATH), 'r+') as f:
+			lines = f.readlines()
+			f.seek(0)
+			f.write('[{}] {}\n'.format(datetime.strftime(datetime.utcnow()+timedelta(hours=5,minutes=30), "%d-%m-%YT%H:%M:%S"), traceback.format_exc()))
+			f.writelines(lines)
+		f.close()
+		return ('NOTFOUNDSERIES', '000000')
+
 
 # tv_series_id = 'tt2261227'
 # get_series_latest_info(tv_series_id)
