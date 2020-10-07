@@ -27,8 +27,8 @@ body {
 table, tr, th, td{
 	border: 0px solid black;
 	border-collapse: collapse;
-	padding-top: 15px;
-	padding-bottom: 15px;
+	padding-top: 10px;
+	padding-bottom: 10px;
 	font-size: 20px;
 	align-items: center;
 	align-content: center;
@@ -81,6 +81,10 @@ table, tr, th, td{
 	outline:  #5973f2;
 }
 
+.save-button:hover{
+	background-color: #24a0ed;
+}
+
 .save-button:focus{
 	outline: none;
 }
@@ -97,18 +101,6 @@ table, tr, th, td{
 
 *:focus {
 	outline: none;
-}
-
-
-.series-update-type:after {
-	position: absolute;
-	content: "";
-	top: 14px;
-	right: 10px;
-	width: 0;
-	height: 0;
-	border: 6px solid transparent;
-	border-color: #fff transparent transparent transparent;
 }
 
 ul.errorlist {
