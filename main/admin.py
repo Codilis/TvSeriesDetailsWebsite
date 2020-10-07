@@ -1,5 +1,5 @@
 from django.contrib import admin
-
+from .models import TvSeriesDetailsModel
 # Register your models here.
 
 # class UserTvSeriesAdmin(admin.ModelAdmin):
@@ -7,4 +7,4 @@ from django.contrib import admin
 #     fieldsets = [
 #         ("Add Tv Series", {'fields': ["tv_series_name", "date_added", "update_type"]}),
 #     ]
-# admin.site.register(UserTvSeries, UserTvSeriesAdmin)
+admin.site.register(TvSeriesDetailsModel)
