@@ -30,12 +30,15 @@ DEBUG = env.bool('TvSeriesDebug', default=False)
 
 ALLOWED_HOSTS = []
 
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_BACKEND = 'django_smtp_ssl.SSLEmailBackend'
+EMAIL_HOST = 'smtp.zoho.in'
 EMAIL_USE_TLS = True
-EMAIL_PORT = 587
+EMAIL_PORT = 465
 EMAIL_HOST_USER = os.getenv('SYSTEMEMAIL')
+DEFAULT_FROM_EMAIL = os.getenv('SYSTEMEMAIL')
 EMAIL_HOST_PASSWORD = os.getenv('SYSTEMPASSWORD')
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
 
 
 # Application definition
