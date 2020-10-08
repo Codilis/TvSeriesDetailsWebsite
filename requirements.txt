@@ -3,6 +3,7 @@ Jinja2
 python-environ
 IMDbPY
 beautifulsoup4
+django-smtp-ssl
 #For heroku
 django-heroku
 gunicorn

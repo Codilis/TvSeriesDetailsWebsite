@@ -48,8 +48,8 @@ def home_view(request):
 			messages.success(request, f"Successfully Added New Series {tv_series_id}")
 			# Send Email to user
 			recipient_list = [request.user]
-
-			Thread(target=tv_series_email, args=(tv_series_id, tv_series_name, recipient_list,)).start()
+			tv_series_email(tv_series_id, tv_series_name, recipient_list)
+			# Thread(target=tv_series_email, args=(tv_series_id, tv_series_name, recipient_list,)).start()
 			return HttpResponseRedirect('/main/')
 		else:
 			for field, items in form.errors.items():

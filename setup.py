@@ -18,7 +18,8 @@ setup(
 	  'django-heroku',
 	  'gunicorn',
 	  'IMDbPY',
-	  'beautifulsoup4'
+	  'beautifulsoup4',
+	  'django-smtp-ssl'
    ],
    packages=find_packages(exclude=['ez_setup']),
    include_package_data=True,
