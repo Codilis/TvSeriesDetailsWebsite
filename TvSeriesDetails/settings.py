@@ -27,6 +27,7 @@ SECRET_KEY = os.getenv('TvSeriesDetailWebsite', 'NOTFOUND')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool('TvSeriesDebug', default=False)
+COMPRESS_ENABLED = os.environ.get('COMPRESS_ENABLED', False)
 
 ALLOWED_HOSTS = []
 
