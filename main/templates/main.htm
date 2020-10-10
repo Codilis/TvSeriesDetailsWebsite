@@ -15,7 +15,7 @@
 			<h2 class="heading">Enter IMDb ID To Get Updates</h2>
 			{% csrf_token %}
 			{% load static %}
-			<img class="find-id-image" src="{% static '/images/findId.webp' %}" alt="">
+			<img class="find-id-image" src="{% static 'images/findId.webp' %}" alt="">
 			{% if messages %}
 				{% for message in messages %}
 					{% if message.tags == 'success'%}
