@@ -31,6 +31,8 @@ COMPRESS_ENABLED = os.environ.get('COMPRESS_ENABLED', False)
 
 ALLOWED_HOSTS = []
 
+ADMIN_EMAIL = os.getenv('ADMINEMAIL')
+
 EMAIL_BACKEND = 'django_smtp_ssl.SSLEmailBackend'
 EMAIL_HOST = 'smtp.zoho.in'
 EMAIL_USE_TLS = True

@@ -23,23 +23,31 @@ def get_tv_series_name(tv_series_id):
 				series = series.data['episode of']
 				return series['title'], series.getID()
 		elif 'title' in series:
-		        return series['title'], series.getID()
+				return series['title'], series.getID()
 		return ('CONNECTIONERROR', '000000')
 	except:
-		f = open('{}\\error_logs.txt'.format(PATH), 'a+')
-		f.close()
-		with open('{}\\error_logs.txt'.format(PATH), 'r+') as f:
-			lines = f.readlines()
-			f.seek(0)
-			f.write('[{}] {}\n'.format(datetime.strftime(datetime.utcnow()+timedelta(hours=5,minutes=30), "%d-%m-%YT%H:%M:%S"), traceback.format_exc()))
-			f.writelines(lines)
-		f.close()
+		email_from = settings.EMAIL_HOST_USER
+		email_to = [settings.ADMIN_EMAIL]
+		subject = f"IMDb Error {datetime.strftime(datetime.utcnow()+timedelta(hours=5,minutes=30), '%d-%m-%YT%H:%M:%S')}"
+		body = traceback.format_exc()
+		send_mail(subject, body, email_from, email_to)
 		return ('NOTFOUNDSERIES', '000000')
 
 def get_series_latest_info(tv_series_id):
 	ia = IMDb()
 	series  = ia.get_movie(tv_series_id[2:])
-	total_season = series['seasons']
+
+	if 'seasons' in series:
+		total_season = series['seasons']
+	else:
+		email_subject = f"New Update For {series['title']}"
+		email_body = [
+						f"Movie Release Year is {series['original air date']}",
+						f"Movie Runtime is: {series['runtimes'][0]} minutes",
+						f"IMDb Rating {series['rating']}",
+						f"Movie Plot: {series['plot outline']}",
+					]
+		return email_subject, "\n".join(email_body)
 	for latest_season in range(1, total_season+1):
 		series_url = 'https://www.imdb.com/title/{}/episodes?season={}'.format(tv_series_id, latest_season)
 		series_webpage = urlopen(series_url)
@@ -110,16 +118,14 @@ def tv_series_email(tv_series_id, tv_series_name, recipient_list):
 		email_from = settings.EMAIL_HOST_USER
 		send_mail(subject, message, email_from, recipient_list)
 	except:
-		f = open('{}\\error_logs.txt'.format(PATH), 'a+')
-		f.close()
-		with open('{}\\error_logs.txt'.format(PATH), 'r+') as f:
-			lines = f.readlines()
-			f.seek(0)
-			f.write('[{}] {}\n'.format(datetime.strftime(datetime.utcnow()+timedelta(hours=5,minutes=30), "%d-%m-%YT%H:%M:%S"), traceback.format_exc()))
-			f.writelines(lines)
-		f.close()
+		email_from = settings.EMAIL_HOST_USER
+		email_to = [settings.ADMIN_EMAIL]
+		subject = f"IMDb Error {datetime.strftime(datetime.utcnow()+timedelta(hours=5,minutes=30), '%d-%m-%YT%H:%M:%S')}"
+		body = traceback.format_exc()
+		send_mail(subject, body, email_from, email_to)
 		return ('NOTFOUNDSERIES', '000000')
 
 
-# tv_series_id = 'tt2261227'
-# get_series_latest_info(tv_series_id)
+
+# tv_series_id = 'tt3659388'
+# print(get_series_latest_info(tv_series_id))
