@@ -28,7 +28,7 @@ def get_tv_series_name(tv_series_id):
 	except:
 		email_from = settings.EMAIL_HOST_USER
 		email_to = [settings.ADMIN_EMAIL]
-		subject = f"IMDb Error {datetime.strftime(datetime.utcnow()+timedelta(hours=5,minutes=30), '%d-%m-%YT%H:%M:%S')}"
+		subject = f"IMDb Error {datetime.now().strftime('%d-%m-%YT%H:%M:%S')}"
 		body = traceback.format_exc()
 		send_mail(subject, body, email_from, email_to)
 		return ('NOTFOUNDSERIES', '000000')
@@ -120,10 +120,9 @@ def tv_series_email(tv_series_id, tv_series_name, recipient_list):
 	except:
 		email_from = settings.EMAIL_HOST_USER
 		email_to = [settings.ADMIN_EMAIL]
-		subject = f"IMDb Error {datetime.strftime(datetime.utcnow()+timedelta(hours=5,minutes=30), '%d-%m-%YT%H:%M:%S')}"
+		subject = f"IMDb Error {datetime.now().strftime('%d-%m-%YT%H:%M:%S')}"
 		body = traceback.format_exc()
 		send_mail(subject, body, email_from, email_to)
-		return ('NOTFOUNDSERIES', '000000')
 
 
 
