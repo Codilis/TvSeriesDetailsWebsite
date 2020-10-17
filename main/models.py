@@ -32,3 +32,6 @@ class TvSeriesDetailsModel(models.Model):
 	tv_series_name = models.CharField(max_length=1023)
 	email_subject = models.TextField()
 	email_body = models.TextField()
+
+	def __str__(self):
+		return self.tv_series_name
