@@ -43,7 +43,8 @@ EMAIL_HOST_PASSWORD = os.getenv('SYSTEMPASSWORD')
 EMAIL_USE_TLS = False
 EMAIL_USE_SSL = True
 
-
+# redirect http to https
+SECURE_SSL_REDIRECT = True
 # Application definition
 
 INSTALLED_APPS = [
