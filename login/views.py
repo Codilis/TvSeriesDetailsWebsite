@@ -109,6 +109,14 @@ def forgetpasswordreset(request, uidb64, token):
 			form.user = user
 			form.save()
 			messages.success(request, 'Your password was successfully updated! Login to continue')
+			email_template_name = "forgetpassword/password_reset_confirmation.txt"
+			subject = "Password Reset Completed"
+			c = {
+			"user_email":user.email,
+			"user":user.get_full_name()
+			}
+			email = render_to_string(email_template_name, c)
+			send_mail(subject, email,  settings.EMAIL_HOST_USER, [user.email])
 			return HttpResponseRedirect('/login/')
 		else:
 			for msg in form.error_messages:
