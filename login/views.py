@@ -1,13 +1,22 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.template import loader
-from django.http import HttpResponse, HttpResponseForbidden, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseForbidden, HttpResponseRedirect, HttpResponseNotFound
 from django.contrib import messages
-from django.contrib.auth.forms import PasswordChangeForm
+from django.contrib.auth.forms import PasswordChangeForm, PasswordResetForm, SetPasswordForm
 from django.contrib.auth import update_session_auth_hash
 from django.contrib.auth.models import User
+from django.contrib.auth.views import PasswordResetView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
-from .models import LoginForm, CreateAccountForm, ChangePasswordForm
+from django.core.mail import send_mail, BadHeaderError
+from django.template.loader import render_to_string
+from django.db.models.query_utils import Q
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.contrib.auth.tokens import default_token_generator
+from django.utils.encoding import force_bytes
+from .models import LoginForm, CreateAccountForm, ChangePasswordForm, ForgetPasswordForm, ResetPasswordForm
+from django.conf import settings
+from django.urls import reverse_lazy
 from main.models import UserTvSeries
 
 
@@ -51,9 +60,68 @@ def createaccount(request):
 def forgetpassword(request):
 	if request.user.is_authenticated:
 		return HttpResponseRedirect('/main/')
-	login_page = loader.get_template('login/forgetpassword.htm')
+	if request.method == 'POST':
+		password_reset_form = PasswordResetForm(request.POST)
+		if password_reset_form.is_valid():
+			data = password_reset_form.cleaned_data['email']
+			associated_users = User.objects.filter(Q(email=data))
+			if associated_users.exists():
+				for user in associated_users:
+					subject = "Password Reset Request"
+					email_template_name = "forgetpassword/password_reset_email.txt"
+					c = {
+					"email":user.email,
+					'domain':'tv-series-details.herokuapp.com',
+					'site_name': 'Tv Series Details',
+					"uid": urlsafe_base64_encode(force_bytes(user.pk)),
+					"user": user,
+					'token': default_token_generator.make_token(user),
+					'protocol': 'http',
+					}
+					email = render_to_string(email_template_name, c)
+					try:
+						send_mail(subject, email,  settings.EMAIL_HOST_USER, [user.email], fail_silently=False)
+					except BadHeaderError:
+						return HttpResponse('Invalid header found.')
+					return redirect("forgetpasswordmessage")
+	login_page = loader.get_template('forgetpassword/forgetpassword.htm')
 	context = {}
+	context['password_reset_form'] = ForgetPasswordForm()
 	return HttpResponse(login_page.render(context, request))
+
+
+def forgetpasswordmessage(request):
+	if request.user.is_authenticated:
+		return HttpResponseRedirect('/main/')
+	forget_password_page = loader.get_template('forgetpassword/forgetpassword.htm')
+	success_message = ["We've emailed you instructions for setting your password, if an account exists with the email you entered. You should receive them shortly.",
+						"If you don't receive an email, please make sure you've entered the address you registered with, and check your spam folder."]
+	context = {"success_message":success_message, "hide_form":'Y'}
+	return HttpResponse(forget_password_page.render(context, request))
+
+def forgetpasswordreset(request, uidb64, token):
+	context = {}
+	context['password_reset_form'] = ResetPasswordForm(request.user)
+	if request.method == 'POST':
+		user = User.objects.get(pk=urlsafe_base64_decode(uidb64))
+		form = SetPasswordForm(request.user, request.POST)
+		if form.is_valid():
+			form.user = user
+			form.save()
+			messages.success(request, 'Your password was successfully updated! Login to continue')
+			return HttpResponseRedirect('/login/')
+		else:
+			for msg in form.error_messages:
+				if 'inactive' not in form.error_messages[msg]:
+					messages.error(request, f"{form.error_messages[msg]}")
+
+	login_page = loader.get_template('forgetpassword/forgetpassword.htm')
+	context["hide_form"] = 'N'
+	user = User.objects.get(pk=urlsafe_base64_decode(uidb64))
+	if default_token_generator.check_token(user=user, token=token):
+		return HttpResponse(login_page.render(context, request))
+	return HttpResponseNotFound()
+
 
 # Change Password
 @login_required(login_url='/login/')
