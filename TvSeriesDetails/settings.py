@@ -140,7 +140,7 @@ AUTHENTICATION_BACKENDS = (
     )
 
 # For Heroku loggin ----
-DEBUG_PROPAGATE_EXCEPTIONS = True
+DEBUG_PROPAGATE_EXCEPTIONS = not env.bool('TvSeriesDebug', default=False)
 
 LOGGING = {
     'version': 1,
