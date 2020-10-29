@@ -145,6 +145,23 @@ ul.errorlist {
 	color: #FFF;
 }
 
+.reset-message-para{
+	border-radius: 10px;
+	background-color: #6495ED;
+	margin: 0px;
+	margin-bottom: 10px;
+	float: right;
+	margin-right: 30px;
+	padding: 5px;
+	color: #FFF;
+}
+
+.reset-message-div{
+	margin-top: 50px;
+	float: left;
+	margin-left: 30px;
+}
+
 .sidepanel-button{
 	top: -100px;
 }
