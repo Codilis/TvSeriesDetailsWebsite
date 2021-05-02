@@ -89,7 +89,6 @@ def delete_subscriptions(request):
 	context['username'] = request.user.get_full_name()
 	context['series_update_keys'] = AVAILABLE_CHOICES_KEYS
 	if request.method == 'POST':
-		print(request.POST)
 		for key, value in request.POST.items():
 			UserTvSeriesModel.objects.filter(user=request.user, tv_series_id=value).delete()
 	main_page = loader.get_template("view_subscription.htm")
